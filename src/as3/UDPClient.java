@@ -14,8 +14,9 @@ public class UDPClient {
         InetAddress IPAddress = InetAddress.getByName("localhost");
 
         while (true) {
-            byte[] sendData = new byte[1024];
+            byte[] sendData;
             byte[] receiveData = new byte[1024];
+            // dùng BufferedReader đọc dữ liệu từ bàn phím , giống như Scanner
             BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
             System.out.print("Please enter a real number: ");
             String userInput = inFromUser.readLine();
@@ -23,17 +24,20 @@ public class UDPClient {
                 break;
             }
             try{
-                // Parse the user input as a float (you can use double if needed);
+                // chuyển dữ liệu người nhập từ dạng string sang dạng float
                 float numberR = Float.parseFloat(userInput);
-                // Convert the real number to bytes and send it to the server
+                // chuyển dữ liệu từ dạnh float sang dạng byte để cbi gửi đi
                 sendData = ByteBuffer.allocate(4).putFloat(numberR).array();
+                // đóng gói dữ liệu vào DatagramPacket
                 DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+                // gửi dữ liệu
                 clientSocket.send(sendPacket);
+                // tạo 1 đối tượng gói dữ liệu DatagramPacket để nhận dữ liệu trả về
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+                // nhận dữ liệu trả về
                 clientSocket.receive(receivePacket);
-                // Extract the received data as a float and print the cube value
+                // giải nén gói dữ liệu và chuyển sang dạng float
                 float cubeValue = ByteBuffer.wrap(receivePacket.getData()).getFloat();
-//                BigDecimal value = new BigDecimal(Float.toString(cubeValue));
                 System.out.println("Cube value of " + numberR + " is: " + cubeValue);
             }catch (NumberFormatException e) {
                 System.out.println("Lỗi: " + e.getMessage());

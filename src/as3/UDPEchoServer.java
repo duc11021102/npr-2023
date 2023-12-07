@@ -16,7 +16,7 @@ class UDPEchoServer {
         while (true) {
             // tạo mảng byte chứa 4 byte dữ liệu
             byte[] receiveData = new byte[4]; // 4 bytes for a float
-            byte[] sendData = new byte[4]; // 4 bytes for a float
+            byte[] sendData; // 4 bytes for a float
 
             // tạo 1 gói để nhận dữ liệu từ mạng và lưu nó trong mảng receiveData
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
@@ -31,6 +31,7 @@ class UDPEchoServer {
             float cubeValue = numberR * numberR * numberR;
 
             // Convert the cube value to bytes and send it to the client
+
             // chuyển giá tri từ dạng float sang mảng byte
             sendData = ByteBuffer.allocate(4).putFloat(cubeValue).array();
             // đóng gói dữ liệu

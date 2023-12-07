@@ -16,6 +16,7 @@ public class ServerTest {
             DatagramSocket serverSocket = new DatagramSocket(port);
             System.out.println("Server: Server is running. Waiting for a client to connect...");
             while (true) {
+                // khai báo một mảng byte có kích thước 1024 byte, được sử dụng để lưu trữ dữ liệu
                 byte[] receiveData = new byte[1024];
                 // Tạo 1 DatagramPacket để nhận data from client
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
@@ -43,6 +44,7 @@ public class ServerTest {
                     System.out.println("Server: Number from client: " + data);
                     // caculate * 3 data from client ;
                     BigInteger dataNumber  = new BigInteger(data);
+                    // chuyển số 3 thành biginteger
                     BigInteger three = BigInteger.valueOf(3);
                     BigInteger result = dataNumber.multiply(three);
                     System.out.println("Server: Result caculated is : " + result);

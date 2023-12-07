@@ -8,12 +8,15 @@ import java.util.Scanner;
 
 public class MulticastServerDemo {
     public static void sendUDPMessage(String message,String ipAddress, int port) throws IOException {
-        DatagramSocket socket = new DatagramSocket();
+        // sử dụng để tạo và quản lý các kết nối dựa trên giao thức datagram
+        DatagramSocket serverSocket = new DatagramSocket();
+        //tạo một đối tượng InetAddress để đại diện cho địa chỉ IP của một nhóm multicast
         InetAddress group = InetAddress.getByName(ipAddress);
         byte[] msg = message.getBytes();
+        // packet dùng để đóng gói dữ liệu cùng với thông tin địa chỉ để cbi gửi
         DatagramPacket packet = new DatagramPacket(msg, msg.length,group, port);
-        socket.send(packet);
-        socket.close();
+        serverSocket.send(packet);
+        serverSocket.close();
     }
 
     public static void main(String[] args) throws IOException {

@@ -12,12 +12,15 @@ public class ClientTest {
         Scanner scanner = new Scanner(System.in);
         String serverAddress = "localhost";
         int serverPort = 10335;
+        // tạo một đối tượng DatagramSocket ở client để nhận và gửi dữ liệu
         DatagramSocket clientSocket = new DatagramSocket();
-        // Specify the server address and port
+        // Tạo một đối tượng InetAddress đại diện cho địa chỉ IP localhost
         InetAddress serverAddressInet = InetAddress.getByName(serverAddress);
         System.out.println("Client: Conneted to server");
+
         // tạo dữ liệu để gửi đi server
         String message = "2001040035";
+        // chuyển message sang dạng byte để cbi gửi
         byte[] sendData = message.getBytes();
 
         // Tạo 1 DatagramPacket để gửi dữ liệu đến server
